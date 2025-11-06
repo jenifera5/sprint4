@@ -74,7 +74,7 @@ Copiar
             <div class="bg-white shadow-lg rounded-xl overflow-hidden hover:shadow-2xl transition-shadow duration-300">
                 <img src="{{ asset('img/libro1.jpg') }}" alt="Carnaval" class="w-full h-64 object-cover">
                 <div class="p-4">
-                    <h4 class="text-lg font-semibold text-gray-800 mb-1">Carnaval</h4>
+                    <h4 class="text-lg font-semibold text-gray-800 mb-1">Caraval</h4>
                     <p class="text-sm text-gray-500 mb-3">Stephanie Garber</p>
                     <div class="flex items-center justify-between">
                         <span class="text-xs text-blue-600 font-semibold">Fantasía</span>
