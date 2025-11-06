@@ -7,64 +7,67 @@ use Illuminate\Http\Request;
 
 class CategoriaController extends Controller
 {
-    
     public function index()
     {
-        $categorias = Categoria::all();
-        return view('categorias.index',compact('categorias'));
-
+        $categorias = Categoria::withCount('libros')->get();
+        return view('categorias.index', compact('categorias'));
     }
 
-   
     public function create()
     {
         return view('categorias.create');
     }
 
-   
     public function store(Request $request)
     {
         $request->validate([
-            'nombre'=>'required|max:45',
-            'descripcion'=>'nullable|max:100',
+            'nombre' => 'required|unique:categorias,nombre|max:255',
+            'descripcion' => 'nullable|max:500',
+        ], [
+            'nombre.required' => 'El nombre de la categoría es obligatorio',
+            'nombre.unique' => 'Ya existe una categoría con este nombre',
         ]);
+        
         Categoria::create($request->all());
         
-        return redirect()->route('categorias.index')->with('success','Categoria creada correctamente .');
+        return redirect()->route('categorias.index')
+            ->with('success', 'Categoría creada correctamente');
     }
 
-   
-   public function show(Categoria $categoria)
-{
-    // Cargar los libros que pertenecen a la categoría
-    $libros = $categoria->libros;  
-
-    return view('categorias.show', compact('categoria', 'libros'));
-}
-
+    public function show(Categoria $categoria)
+    {
+        $categoria->load('libros');
+        return view('categorias.show', compact('categoria'));
+    }
 
     public function edit(Categoria $categoria)
     {
         return view('categorias.edit', compact('categoria'));
     }
 
-
-   
     public function update(Request $request, Categoria $categoria)
     {
         $request->validate([
-            'nombre' =>'required|string|max:45',
-            'descripcion'=>'required|string|max:100',
-            
+            'nombre' => 'required|unique:categorias,nombre,' . $categoria->id . '|max:255',
+            'descripcion' => 'nullable|max:500',
         ]);
+        
         $categoria->update($request->all());
-        return redirect()->route('categorias.index')->with('success','Categoria actualizado correctamente.');
+        
+        return redirect()->route('categorias.index')
+            ->with('success', 'Categoría actualizada correctamente');
     }
 
-    
     public function destroy(Categoria $categoria)
     {
+        if ($categoria->libros()->count() > 0) {
+            return redirect()->route('categorias.index')
+                ->with('error', 'No se puede eliminar una categoría que tiene libros asignados');
+        }
+        
         $categoria->delete();
-        return redirect()->route('categorias.index')->with('success','Categoria eliminada correctamente');
+        
+        return redirect()->route('categorias.index')
+            ->with('success', 'Categoría eliminada correctamente');
     }
 }

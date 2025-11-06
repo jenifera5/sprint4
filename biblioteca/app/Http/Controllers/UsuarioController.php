@@ -1,9 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+
 use App\Models\Usuario;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UsuarioController extends Controller
 {
@@ -11,7 +12,7 @@ class UsuarioController extends Controller
     public function index()
     {
         $usuarios = Usuario::all();
-        return view('usuarios.index',compact('usuarios'));
+        return view('usuarios.index', compact('usuarios'));
     }
 
     
@@ -21,18 +22,22 @@ class UsuarioController extends Controller
     }
 
    
-  public function store(Request $request)
+    public function store(Request $request)
     {
         $request->validate([
-            'nombre' => 'required|string|max:50',
-            'email' => 'required|email|unique:usuarios,email',
-            'password' => 'required|string|min:6'
+            'nombre' => 'required|string|max:255',
+            'email' => 'required|email|unique:usuarios,email|max:255',
+            'password' => 'required|string|min:8|confirmed', // Mínimo 8 caracteres + confirmación
+        ], [
+            'password.min' => 'La contraseña debe tener al menos 8 caracteres',
+            'password.confirmed' => 'Las contraseñas no coinciden',
+            'email.unique' => 'Este email ya está registrado',
         ]);
 
         Usuario::create([
             'nombre' => $request->nombre,
             'email' => $request->email,
-            'password' => $request->password 
+            'password' => Hash::make($request->password), // ENCRIPTAR contraseña
         ]);
 
         return redirect()->route('usuarios.index')->with('success', 'Usuario creado con éxito');
@@ -40,34 +45,93 @@ class UsuarioController extends Controller
    
     public function show(Usuario $usuario)
     {
-        return view('usuarios.edit',compact('usuario'));
+        return view('usuarios.show', compact('usuario'));
     }
 
    
     public function edit(Usuario $usuario)
     {
-       return view('usuarios.edit',compact('usuario'));
+        return view('usuarios.edit', compact('usuario'));
     }
 
     
     public function update(Request $request, Usuario $usuario)
     {
-        $request->validate([
-            'nombre'=>'required|string|max:50',
-            'email'=>'required|email|unique:usuarios,email,' . $usuario->id,
+        $rules = [
+            'nombre' => 'required|string|max:255',
+            'email' => 'required|email|unique:usuarios,email,' . $usuario->id . '|max:255',
+        ];
+
+        // Solo validar contraseña si se proporciona
+        if ($request->filled('password')) {
+            $rules['password'] = 'required|string|min:8|confirmed';
+        }
+
+        $request->validate($rules, [
+            'password.min' => 'La contraseña debe tener al menos 8 caracteres',
+            'password.confirmed' => 'Las contraseñas no coinciden',
+            'email.unique' => 'Este email ya está registrado',
         ]);
 
-        $usuario->update([
-            'nombre'=> $request->nombre,
-            'email'=>  $request->email,
-        ]);
-        return redirect()->route('usuarios.index')->with('success','Usuario actualizado');
+        $data = [
+            'nombre' => $request->nombre,
+            'email' => $request->email,
+        ];
+
+        // Solo actualizar contraseña si se proporciona
+        if ($request->filled('password')) {
+            $data['password'] = Hash::make($request->password);
+        }
+
+        $usuario->update($data);
+        
+        return redirect()->route('usuarios.index')->with('success', 'Usuario actualizado correctamente');
     }
 
     
     public function destroy(Usuario $usuario)
     {
+        // Verificar si tiene préstamos activos
+        if ($usuario->prestamos()->exists()) {
+            return redirect()->route('usuarios.index')
+                ->with('error', 'No se puede eliminar el usuario porque tiene préstamos asociados');
+        }
+
         $usuario->delete();
-        return redirect()->route('usuarios.index')->with('success','Usuario eliminado');
+        return redirect()->route('usuarios.index')->with('success', 'Usuario eliminado correctamente');
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
