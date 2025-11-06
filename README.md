@@ -1,152 +1,104 @@
-# 🧪 FullStack Sprint 4 – Laravel MVC
+# 📚 Sistema de Gestión de Biblioteca Virtual
 
-Este repositorio contiene los ejercicios desarrollados durante el **Sprint 4** del curso de **Desarrollo Web FullStack** en **IT Academy**.  
-Durante este Sprint se trabaja con el framework **Laravel** aplicando el patrón de diseño **MVC**, junto con herramientas modernas como **Eloquent, Livewire, Tailwind CSS** y más.
-
----
-
-## 📑 Tabla de Contenidos
-
-1. [Tema 1 – Entorno de desarrollo](#tema-1--entorno-de-desarrollo)
-2. [Tema 2 – Empezando con Laravel](#tema-2--empezando-con-laravel)
-3. [Tema 3 – Views](#tema-3--views)
-4. [Tema 4 – Formularios y validación](#tema-4--formularios-y-validación)
-5. [Tema 5 – Bases de datos](#tema-5--bases-de-datos)
-6. [Tema 6 – Autenticación en Laravel](#tema-6--autenticación-en-laravel)
-7. [Tema 7 – Emails](#tema-7--emails)
-8. [Tema 8 – Livewire](#tema-8--livewire)
-9. [Tema 9 – Capa de Servicio](#tema-9--capa-de-servicio)
-10. [Tema 10 – Próximos pasos](#tema-10--próximos-pasos)
-11. [Requisitos](#requisitos)
+Sistema web para la gestión de una biblioteca virtual, desarrollado con Laravel y Blade. Permite administrar libros, usuarios, préstamos y categorías de manera eficiente e intuitiva.
 
 ---
 
-## 🛠 Tema 1 – Entorno de desarrollo
+## 🚀 Características
 
-**Objetivo:**
-- Configurar correctamente el entorno para desarrollar con Laravel.
+- ✅ **Gestión completa de libros (CRUD)**
+  - Crear, editar, visualizar y eliminar libros
+  - Asociar libros a categorías
+  - Campos: título, autor, descripción, ISBN, categoría
+  
+- ✅ **Administración de usuarios**
+  - Registro y gestión de usuarios
+  - Validación de datos (email, contraseña, etc.)
+  - Historial de préstamos por usuario
 
-**Método:**
-- Instalar Composer, Laravel, PHP y Node.
-- Configurar un proyecto nuevo con `composer create-project`.
-- Levantar el servidor con `php artisan serve`.
+- ✅ **Sistema de préstamos**
+  - Crear y gestionar préstamos
+  - Fechas de préstamo y devolución
+  - Control de libros disponibles
+  - Marcar préstamos como devueltos
 
----
+- ✅ **Organización por categorías**
+  - Crear y gestionar categorías
+  - Asignar múltiples libros a cada categoría
+  - Organización del catálogo
 
-## 🚀 Tema 2 – Empezando con Laravel
-
-**Objetivo:**
-- Comprender la estructura base de Laravel y cómo funciona MVC.
-
-**Método:**
-- Explorar carpetas clave como `routes`, `resources`, `app`, `config`.
-- Crear rutas, controladores y vistas simples.
-
----
-
-## 🖼 Tema 3 – Views
-
-**Objetivo:**
-- Trabajar con el motor de plantillas Blade.
-
-**Método:**
-- Crear archivos `.blade.php`.
-- Utilizar directivas como `@extends`, `@include`, `@section`, `@yield`.
+- ✅ **Interfaz moderna y responsive**
+  - Sidebar de navegación persistente
+  - Diseño adaptable a dispositivos móviles
+  - Experiencia de usuario optimizada
+  - Animaciones suaves
 
 ---
 
-## 📄 Tema 4 – Formularios y validación
+## 🛠️ Tecnologías Utilizadas
 
-**Objetivo:**
-- Crear formularios y validar datos del usuario.
-
-**Método:**
-- Usar `@csrf`, métodos `POST` y `GET`.
-- Validar entradas con `Request` y reglas (`required`, `email`, etc.).
-
----
-
-## 🗃 Tema 5 – Bases de datos
-
-**Objetivo:**
-- Trabajar con bases de datos utilizando Eloquent ORM.
-
-**Método:**
-- Crear migraciones, modelos y relaciones (`hasMany`, `belongsTo`, etc.).
-- Insertar, leer, actualizar y eliminar datos desde el modelo.
+| Tecnología | Versión | Uso |
+|-----------|---------|-----|
+| **Laravel** | 10.x | Framework backend |
+| **Blade** | - | Motor de plantillas |
+| **Tailwind CSS** | 3.x | Framework CSS |
+| **SQLite** | 3.x | Base de datos |
+| **Font Awesome** | 6.4 | Iconos |
+| **PHP** | 8.1+ | Lenguaje backend |
+| **Git** | - | Control de versiones |
 
 ---
 
-## 🔐 Tema 6 – Autenticación en Laravel
+## 📋 Requisitos Previos
 
-**Objetivo:**
-- Implementar autenticación de usuarios/as.
+Antes de instalar el proyecto, asegúrate de tener instalado:
 
-**Método:**
-- Usar Laravel Breeze o Fortify.
-- Proteger rutas con middleware `auth`.
-- Redirigir según el estado de autenticación.
+- **PHP** >= 8.1
+- **Composer** (gestor de dependencias de PHP)
+- **SQLite3** (base de datos)
+- **Git** (control de versiones)
+- **Node.js y npm** (opcional, para compilar assets)
 
----
+### Verificar requisitos
 
-## ✉️ Tema 7 – Emails
+```bash
+# Verificar versión de PHP
+php -v
 
-**Objetivo:**
-- Enviar correos desde la aplicación Laravel.
+# Verificar Composer
+composer --version
 
-**Método:**
-- Configurar un proveedor SMTP.
-- Usar `Mail::to()` y clases `Mailable`.
+# Verificar SQLite
+sqlite3 --version
 
----
-
-## ⚡ Tema 8 – Livewire
-
-**Objetivo:**
-- Crear componentes dinámicos sin usar JavaScript.
-
-**Método:**
-- Instalar Livewire en el proyecto.
-- Crear componentes con `php artisan make:livewire`.
-- Usar `wire:model`, `wire:click`, etc.
+# Verificar Git
+git --version
+```
 
 ---
 
-## 🧠 Tema 9 – Capa de Servicio
+## ⚙️ Instalación
 
-**Objetivo:**
-- Aplicar el principio de separación de responsabilidades.
+### 1️⃣ Clonar el repositorio
 
-**Método:**
-- Crear servicios en `app/Services`.
-- Mover lógica de negocio fuera de los controladores.
+```bash
+git clone [URL_DE_TU_REPOSITORIO]
+cd biblioteca
+```
 
----
+### 2️⃣ Instalar dependencias de Composer
 
-## 📌 Tema 10 – Próximos pasos
+```bash
+composer install
+```
 
-**Objetivo:**
-- Consolidar conocimientos y preparar el proyecto final.
+### 3️⃣ Configurar archivo de entorno
 
-**Método:**
-- Repasar estructura MVC.
-- Mejorar prácticas de control de versiones (Git/GitHub).
-- Integrar Laravel con Tailwind y herramientas modernas.
+```bash
+# Copiar archivo de ejemplo
+cp .env.example .env
+```
 
----
+Edita el archivo `.env` y configura la base de datos:
 
-## 🧰 Requisitos
-
-- Tener instalado:
-  - **PHP 8.x o superior**
-  - **Composer**
-  - **Laravel CLI**
-  - **Visual Studio Code**
-  - **XAMPP o MySQL local**
-  - **Node.js y npm**
-- Se recomienda instalar **Laravel Breeze** para autenticación.
-
----
-
-✍️ **Autor/a:** Jenifer Álvarez  
-📅 **Sprint 4 – Curso FullStack – IT Academy**
+```env
