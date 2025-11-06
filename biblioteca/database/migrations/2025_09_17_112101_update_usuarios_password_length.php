@@ -22,8 +22,78 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('usuarios', function (Blueprint $table) {
-            $table->string('password', 45)->change();
-        });
+        // NO REVERTIR - mantener 255 para evitar errores
+        // Si realmente necesitas revertir, primero borra todos los usuarios
+        // Schema::table('usuarios', function (Blueprint $table) {
+        //     $table->string('password', 45)->change();
+        // });
     }
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

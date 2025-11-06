@@ -9,13 +9,13 @@ Copiar
 @section('page-title', 'Inicio')
 
 @section('content')
-    <!-- Hero section -->
-    <section class="text-center mb-10">
-        <h2 class="text-4xl font-bold text-gray-900 mb-4">📚 Bienvenido/a a la Biblioteca Virtual</h2>
-        <p class="text-gray-600 text-lg max-w-2xl mx-auto">
-            Explora libros, administra usuarios y gestiona préstamos fácilmente desde el sistema.
-        </p>
-    </section>
+   <!-- Hero section -->
+<section class="bg-white rounded-xl shadow-lg p-8 text-center mb-10">
+    <h2 class="text-4xl font-bold text-gray-900 mb-4">📚 Bienvenido/a a la Biblioteca Virtual</h2>
+    <p class="text-gray-600 text-lg max-w-2xl mx-auto">
+        Explora libros, administra usuarios y gestiona préstamos fácilmente desde el sistema.
+    </p>
+</section>
 
     <!-- Cards de acceso rápido -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">

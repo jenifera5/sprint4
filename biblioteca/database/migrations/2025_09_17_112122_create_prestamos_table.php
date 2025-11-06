@@ -13,14 +13,17 @@ return new class extends Migration
     {
         Schema::create('prestamos', function (Blueprint $table) {
             $table->id();
+            
             // Claves foráneas
             $table->unsignedBigInteger('id_usuario');
             $table->unsignedBigInteger('id_libro');
 
-            // Fechas y estado
+            // Fechas
             $table->date('fecha_prestamo');
-            $table->date('fecha_devolucion')->nullable(); // por si no se ha devuelto aún
-            $table->string('estado', 20); // pendiente, devuelto, vencido
+            $table->date('fecha_devolucion');
+            
+            // Estado como boolean (devuelto o no)
+            $table->boolean('devuelto')->default(false);
 
             $table->timestamps();
 
