@@ -539,9 +539,6 @@ Blade es el motor de plantillas de Laravel que permite crear vistas reutilizable
    - Se registra la fecha de devolución
    - Se incrementa el número de copias disponibles
 
-3. **Ver historial:**
-   - Filtra por usuario o libro
-   - Consulta préstamos activos vs devueltos
 
 ---
 
